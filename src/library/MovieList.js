@@ -86,26 +86,28 @@ class MovieList extends React.Component {
 
   render() {
   
-    const { buildPosterSrc, onItemPress } = this.props;
+    const { buildPosterSrc, onItemPress, 
+            styles = {}, itemStyles = undefined } = this.props;
 
     return(
-      <View style={styles.container}>
+      <View style={[defaultStyles.container, styles.container]}>
       {this.state.movies.length > 0 && 
         <FlatList
           {...this.props}
-          style={styles.list}
+          style={[defaultStyles.list, styles.list]}
           data={this.state.movies}
           renderItem={({item})=> (
             <PosterListItem data={this.buildPosterData(item)}
               posterSrc={buildPosterSrc(item)}
-              onItemPress={onItemPress}/> 
+              onItemPress={onItemPress}
+              styles={itemStyles}/> 
           )}
           onEndReachedThreshold={0.4}
           onEndReached={this.loadMore.bind(this)}
         />
       }
       {this.state.isLoading && 
-        <View style={styles.loading}>
+        <View style={[defaultStyles.loading, styles.loading]}>
                 <ActivityIndicator />
               </View>}
       </View>
@@ -113,7 +115,7 @@ class MovieList extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row'
@@ -134,7 +136,10 @@ MovieList.propTypes = {
   buildPosterSrc: PropTypes.func.isRequired,
   // callback function passed to PosterItemList
   onItemPress: PropTypes.func.isRequired,
-
+  // StyleSheet object
+  itemStyles: PropTypes.object,
+  // StyleSheet object
+  styles: PropTypes.object
 }
 
 export default MovieList;

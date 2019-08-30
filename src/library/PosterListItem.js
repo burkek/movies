@@ -21,24 +21,31 @@ class PosterListItem extends React.Component {
   }
 
   render() {
-    const {data, posterSrc, onItemPress} = this.props;
+    const {data, posterSrc, onItemPress, styles = {}} = this.props;
     return(
-     <View style={styles.itemContainer}>
+     <View style={[defaultStyles.itemContainer, styles.itemContainer]}>
      {/* return the data object for the clicked item */}
      <TouchableOpacity 
         onPress={() => onItemPress(data)}>
 
-          <Text style={styles.title}>{data.mainText}</Text>
-          <Text style={styles.date}>{data.secondText}</Text>
-          <View style={styles.mainContent}>
-            { posterSrc ? <Image 
-            resizeMode={'contain'}
-            style={styles.poster}
-            source={posterSrc} 
-            /> : 
-            <View style={styles.noPoster}>
-              <Text style={styles.noPosterText}>No Image Available</Text>
-            </View>}
+          <Text style={[defaultStyles.mainText, 
+                        styles.mainText]}>{data.mainText}</Text>
+          <Text style={[defaultStyles.secondText, 
+                        styles.secondText]}>{data.secondText}</Text>
+          <View style={[defaultStyles.mainContent, 
+                          styles.mainContent]}>
+            { posterSrc ? 
+              <Image resizeMode={'contain'}
+                      style={[defaultStyles.poster, styles.poster]}
+                      source={posterSrc} 
+                /> 
+              : 
+            (<View style={[defaultStyles.noPoster, styles.noPoster]}>
+              <Text style={[defaultStyles.noPosterText, 
+                    styles.noPosterText]}>
+                    No Image Available
+              </Text>
+            </View>)}
           </View>
         </TouchableOpacity>
       </View>
@@ -46,7 +53,7 @@ class PosterListItem extends React.Component {
   }
 }
 
-const styles = StyleSheet.create({
+const defaultStyles = StyleSheet.create({
   itemContainer: {
     backgroundColor: '#eee',
     borderRadius: 5,
@@ -54,14 +61,14 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     marginRight: 20
   },
-  title: {
+  mainText: {
     fontSize: 18, 
     color: '#00B1B0', 
     textAlign: 'center', 
     fontWeight: '700', 
     marginBottom: 10
   },
-  date: {
+  secondText: {
     textAlign: 'center', 
     marginBottom: 15
   },
@@ -92,6 +99,8 @@ PosterListItem.propTypes = {
   onItemPress:  PropTypes.func.isRequired,
   // an object must contain these keys: mainText, secondText
   data:        PropTypes.object.isRequired,
+  // StyleSheet object
+  styles: PropTypes.object,
   // same accepted values as Image.source
   posterSrc:    PropTypes.oneOfType([
                   PropTypes.shape({
