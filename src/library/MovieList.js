@@ -28,6 +28,7 @@ class MovieList extends React.Component {
       page: 1, 
       totalPages: 1
     }
+    this.loadMore = this.loadMore.bind(this);
   }
 
   /**
@@ -103,7 +104,7 @@ class MovieList extends React.Component {
               styles={itemStyles}/> 
           )}
           onEndReachedThreshold={0.4}
-          onEndReached={this.loadMore.bind(this)}
+          onEndReached={this.loadMore}
         />
       }
       {this.state.isLoading && 

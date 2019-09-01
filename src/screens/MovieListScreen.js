@@ -24,7 +24,7 @@ export default class MovieListScreen extends React.Component {
 
   constructor(props) {
     super(props);
-
+    this.toDetails = this.toDetails.bind(this);
   }
 
   /**
@@ -71,7 +71,7 @@ export default class MovieListScreen extends React.Component {
             <MovieList  
               horizontal={true}
               keyExtractor={(item, index) => 'now-playing-' + index.toString()}
-              onItemPress={this.toDetails.bind(this)}
+              onItemPress={this.toDetails}
               loadData={(page) => this.fetchMovies('now_playing', page)}
               buildPosterSrc={this.buildPosterSrc}
             />
@@ -81,7 +81,7 @@ export default class MovieListScreen extends React.Component {
             <MovieList  
               horizontal={true}
               keyExtractor={(item, index) => 'popular-' + index.toString()}
-              onItemPress={this.toDetails.bind(this)}
+              onItemPress={this.toDetails}
               loadData={(page) => this.fetchMovies('popular', page)}
               buildPosterSrc={this.buildPosterSrc}
             />
@@ -91,7 +91,7 @@ export default class MovieListScreen extends React.Component {
             <MovieList 
               horizontal={true}
               keyExtractor={(item, index) => 'upcoming-' + index.toString()}
-              onItemPress={this.toDetails.bind(this)}
+              onItemPress={this.toDetails}
               loadData={(page) => this.fetchMovies('upcoming', page)}
               buildPosterSrc={this.buildPosterSrc}
             />

@@ -14,7 +14,7 @@ import PropTypes from 'prop-types';
 * followed by an image. 
 * see PropTypes below for required props
 */
-class PosterListItem extends React.Component {
+class PosterListItem extends React.PureComponent {
 
   constructor(props) {
     super(props);
